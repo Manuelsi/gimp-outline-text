@@ -29,6 +29,7 @@
       (colour -1)
       (activeLayer -1)
       (newLayer -1)
+      (layerPosUnder -1)
     )
 
     (gimp-undo-push-group-start image)
@@ -58,8 +59,12 @@
         0
       ))
     )
+	
+	(set! layerPosUnder
+	  (+ (car(gimp-image-get-layer-position image activeLayer)) 1)
+	)
 
-    (gimp-image-insert-layer image newLayer -1 1)
+    (gimp-image-insert-layer image newLayer -1 layerPosUnder)
     (gimp-selection-feather image outlineSize)
     (gimp-edit-fill newLayer BACKGROUND-FILL)
     (gimp-selection-none image)
